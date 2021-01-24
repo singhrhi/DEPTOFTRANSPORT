@@ -12,3 +12,5 @@ Initially page will show list of bus companies. Company may or may not have bus 
 Data will show up as table when company list item will be clicked. User can also provide notes.
 After providing notes textarea and button will be disabled.
 
+Tech Stack : Bootstrap 4, Angular 10, Jasmine karma
+
