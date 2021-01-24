@@ -1,0 +1,64 @@
+<div class="container">
+    
+    <p class="h2 mt-5">Bus Reports<p>
+
+    <span *ngIf="show">
+        Loading...
+    </span>
+
+    <div *ngIf="!show">
+
+        <div class="list-group" *ngFor="let br of busReportData">
+
+            <a (click)="expandList(br.organisation)" class="h5 mb-0 border border-dark list-group-item list-group-item-action cursor-default">
+
+                {{br.organisation}} - {{br.date}}
+
+                <span *ngIf="br.clicked" class="float-right">
+                    <i class="fas fa-angle-up"></i>
+                </span>
+    
+                <span *ngIf="!br.clicked" class="float-right">
+                    <i class="fas fa-angle-down"></i>
+                </span>
+
+            </a>
+    
+            <div *ngIf="br.clicked && br.busData.data.length" class="container">
+    
+                <div class="table-responsive">
+
+                    <table class="table">
+                        <thead>
+                          <tr class="table-info">
+                            <th scope="col">Bus ID</th>
+                            <th scope="col">Route Variant</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let brd of br.busData.data">
+                            <td>{{brd.busId}}</td>
+                            <td [innerHtml]="brd.routeVariant"></td>
+                            <td [innerHtml]="checkStatus(brd.deviationFromTimetable)"></td>
+                          </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+    
+                <div class="form-group">
+                    <textarea [value]="br.busData.noteVal"[disabled]="br.busData.isNotes" #notes class="form-control mb-4" rows="3"></textarea>
+                    <button [disabled]="br.busData.isNotes" (click)="saveNotes(notes, br)" type="button" class="btn btn-primary">Save Notes</button>
+                </div>
+    
+            </div>
+    
+            <div *ngIf="br.clicked && !br.busData.data.length" class="text-center text-info font-weight-bold mt-4 mb-4">
+                No BUS DATA!
+            </div>
+    
+        </div>
+    </div>
+    
+</div>
